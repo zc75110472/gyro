@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width"/>
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0
+        }
+        #box{
+            width: 200px;
+            height: 200px;
+            margin: 100px auto;
+            border: 5px solid blue;
+            position: relative;
+        }
+        #move{
+            position: absolute;
+            left: 90px;
+            top: 90px;
+            width: 20px;
+            height: 20px;
+            background: blue;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="box">
+        <div id="txt"></div>
+        <div id="move"></div>
+    </div>
+    <script>
+        //alert( window.orientation );
+        var maxX = box.clientWidth - move.clientWidth;
+        var maxY = box.clientHeight - move.clientHeight;
+        window.addEventListener('deviceorientation',function (e) {
+            var x = e.beta;  // 设备在X轴 的旋转角度  【-180，180】
+            var y = e.gamma; // 设备在Y上的旋转角度  【-90，90】
+
+            txt.innerHTML = x +'<br>'+y;
+            if( x>90 )x=90;
+            if(  x<-90)x=-90;
+
+            x += 90;
+            y += 90;
+
+            move.style.left = ( maxX*x/180 ) + 'px';
+            move.style.top = (maxX*y/180) + 'px';
+        })
+    </script>
+</body>
+</html>

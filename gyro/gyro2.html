@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>重力感应与陀螺仪旋转3d</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            height: 100%;
+            transform-style: preserve-3d;
+            position: relative;
+        }
+        body{
+            overflow: hidden;
+            perspective: 800px;
+        }
+        li{ list-style: none }
+        #box{
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            width: 200px;
+            height: 300px;
+            border: 1px blue solid;
+            background: rgba(0,0,255,0.5);
+
+        }
+        ul{
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            /*transition: 5s;*/
+        }
+        ul li{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.5;
+            text-align: center;
+            line-height: 300px;
+        }
+        ul li:nth-child(1){
+            background: #0b62b3;
+            top: -300px;
+            left: 0;
+            transform-origin: bottom;
+            transform:translateZ(150px) rotateX(90deg);
+        }
+        ul li:nth-child(2){
+            background: #0aa6e8;
+            top: 300px;
+            left: 0;
+            transform-origin: top;
+            transform:translateZ(150px) rotateX(-90deg);
+        }
+        ul li:nth-child(3){
+            background: #0BB20C;
+            left: -300px;
+            top: 0;
+            width: 300px;
+            transform-origin: right;
+            transform:translateZ(150px) rotateY(-90deg);
+        }
+        ul li:nth-child(4){
+            background: blueviolet;
+            left: 200px;
+            top: 0;
+            width: 300px;
+            transform-origin: left;
+            transform:translateZ(150px) rotateY(90deg);
+        }
+        ul li:nth-child(5){
+            background: red;
+            left: 0;
+            top: 0;
+            transform:translateZ(150px) translateZ(0px);
+        }
+        ul li:nth-child(6){
+            background: yellow;
+            left: 0;
+            top: 0;
+            transform:translateZ(150px) translateZ(-300px);
+        }
+        ul li:nth-child(7){
+            background: blue;
+            left: 100px;
+            top: 0;
+            width: 300px;
+            transform-origin: left;
+            transform:translateZ(150px) rotateY(90deg);
+        }
+        #box:hover ul{
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body>
+<div id="txt"></div>
+<div id="box">
+    <ul id="list">
+        <li>上</li>
+        <li>下</li>
+        <li>左</li>
+        <li>右</li>
+        <li>前</li>
+        <li>后</li>
+        <li>中</li>
+    </ul>
+</div>
+<script>
+    window.onload = function () {
+        // 设备运动事件   监听的是加速度的变化而不是方向
+        window.addEventListener('deviceorientation',function (e) {
+            txt.innerHTML = 'z旋转'+ Math.round(e.alpha) + '度 <br>' + 'x旋转'+ Math.round(e.beta) + '度 <br>' + 'y旋转'+ Math.round(e.gamma) + '度';
+            list.style.transform = 'rotateZ('+ Math.round(e.alpha) +'deg) rotateX('+ Math.round(e.beta) +'deg) rotateY('+ Math.round(e.gamma) +'deg)'
+        },false)
+    }
+</script>
+</body>
+</html>
